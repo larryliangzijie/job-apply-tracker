@@ -30,19 +30,19 @@ const FAQ_ITEMS = [
   },
   {
     q: "Where does my data live?",
-    a: "Supabase, hosted in the EU. You can export everything to CSV or JSON anytime, and deleting your account wipes it for real.",
+    a: "Supabase. You can export your application data anytime.",
   },
   {
     q: "Can I import from a spreadsheet?",
-    a: "CSV import is on the roadmap. Notion and Google Sheets paste-in is coming, alongside email forwarding for job-listing emails.",
+    a: "The autumn recruitment pool is synced into Supabase and your personal progress is kept separately.",
   },
   {
     q: "Does it work on phones?",
-    a: "Yes — full mobile, installable as a PWA. The web app does what a native app would.",
+    a: "Yes — the web app is responsive and installable as a PWA.",
   },
   {
     q: "Will I get marketing emails?",
-    a: "Zero. The only mail you'll get is follow-up reminders you opted into and the weekly summary you can disable.",
+    a: "No. Follow-up notifications are only sent when enabled.",
   },
 ];
 
@@ -52,10 +52,6 @@ const orgLd = {
   name: siteConfig.name,
   url: siteConfig.url,
   logo: `${siteConfig.url}/icon.png`,
-  sameAs: [
-    "https://github.com/berkinduz",
-    "https://www.linkedin.com/in/berkinduz/",
-  ],
 };
 
 const softwareLd = {
@@ -71,7 +67,6 @@ const softwareLd = {
     price: "0",
     priceCurrency: "USD",
   },
-  aggregateRating: undefined, // add once we have real reviews
 };
 
 const faqLd = {
@@ -93,26 +88,14 @@ export default async function LandingPage() {
     data: { user },
   } = await supabase.auth.getUser();
   if (user) {
-    redirect("/applications");
+    redirect("/jobs");
   }
 
   return (
     <>
-      <Script
-        id="ld-org"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
-      />
-      <Script
-        id="ld-software"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }}
-      />
-      <Script
-        id="ld-faq"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
-      />
+      <Script id="ld-org" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
+      <Script id="ld-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
+      <Script id="ld-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <JtLanding />
     </>
   );
